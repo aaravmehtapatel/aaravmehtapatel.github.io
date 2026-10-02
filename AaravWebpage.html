@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aarav Patel</title>
+  <meta name="description" content="Aarav Patel is a Rutgers finance student who builds software and quantitative models for wealth management.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f8f6;
+      --ink: #1b2433;
+      --slate: #5b6472;
+      --rule: #dadde2;
+      --ledger: #2c5e4f;
+      --row-hover: #eef1ee;
+      --serif: "Source Serif 4", Georgia, serif;
+      --sans: "Public Sans", system-ui, -apple-system, sans-serif;
+      --margin: 13rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #151a21;
+        --ink: #e6e8ec;
+        --slate: #9aa3b0;
+        --rule: #2b323d;
+        --ledger: #82c3ad;
+        --row-hover: #1b222b;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 400 1rem/1.6 var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--ledger); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 2px solid var(--ledger); outline-offset: 3px; border-radius: 2px; }
+    p, ul, ol, dl, dd, h1, h2, h3, h4 { margin: 0; }
+
+    .page { max-width: 64rem; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Masthead */
+    .masthead {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 1.75rem 0; border-bottom: 1px solid var(--rule);
+    }
+    .masthead .name { font: 600 1rem/1 var(--sans); color: var(--ink); text-decoration: none; white-space: nowrap; }
+    .masthead nav { display: flex; gap: 1.5rem; font-size: .9375rem; }
+    .masthead nav a { color: var(--slate); text-decoration: none; }
+    .masthead nav a:hover { color: var(--ink); }
+
+    /* Opening */
+    .opening { padding: 5.5rem 0 4.5rem; }
+    .statement {
+      max-width: 21em;
+      text-wrap: balance;
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.75rem);
+      line-height: 1.22;
+      font-weight: 400;
+      letter-spacing: -.012em;
+      font-optical-sizing: auto;
+    }
+    .facts {
+      margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule);
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem 2rem;
+      font-size: .9375rem;
+    }
+    .facts dt { color: var(--slate); }
+    .facts dd { color: var(--ink); }
+    .facts div { display: flex; flex-direction: column; }
+
+    /* Sections */
+    .section {
+      display: grid; grid-template-columns: var(--margin) 1fr;
+      padding: 3.5rem 0; border-top: 1px solid var(--rule);
+    }
+    .section > h2 {
+      font: 600 .9375rem/1.6 var(--sans);
+      color: var(--ink);
+      padding-top: .15rem;
+    }
+    .section-body { min-width: 0; }
+    .section-intro { color: var(--slate); max-width: 36rem; margin-bottom: 2rem; }
+
+    /* Work: a ruled ledger of projects */
+    .ledger { border-top: 1px solid var(--ink); }
+    .entry { border-bottom: 1px solid var(--rule); }
+    .entry summary {
+      list-style: none; cursor: pointer;
+      display: grid; grid-template-columns: 1fr 1.5rem; gap: 1rem;
+      padding: 1.5rem .25rem 1.5rem 0;
+    }
+    .entry summary::-webkit-details-marker { display: none; }
+    .entry summary:hover { background: var(--row-hover); }
+    .entry h3 {
+      font: 600 1.375rem/1.3 var(--serif);
+      letter-spacing: -.005em;
+      margin-bottom: .2rem;
+    }
+    .entry .kind { color: var(--slate); font-size: .9375rem; margin-bottom: .75rem; }
+    .entry .summary-text { max-width: 38rem; }
+    .toggle {
+      width: 1.5rem; height: 1.5rem; margin-top: .35rem; position: relative; color: var(--slate);
+    }
+    .toggle::before, .toggle::after {
+      content: ""; position: absolute; left: 50%; top: 50%;
+      width: 12px; height: 1.5px; background: currentColor;
+      transform: translate(-50%, -50%);
+      transition: transform .2s ease;
+    }
+    .toggle::after { transform: translate(-50%, -50%) rotate(90deg); }
+    .entry[open] .toggle::after { transform: translate(-50%, -50%) rotate(0deg); }
+    .entry summary:hover .toggle { color: var(--ink); }
+
+    .detail { padding: 0 2.5rem 1.75rem 0; max-width: 40rem; }
+    .detail ul { padding-left: 1.1rem; display: grid; gap: .5rem; }
+    .detail li::marker { color: var(--slate); }
+    .detail .meta {
+      margin-top: 1.25rem;
+      display: grid; grid-template-columns: 6.5rem 1fr; gap: .35rem 1rem;
+      font-size: .9375rem;
+    }
+    .detail .meta dt { color: var(--slate); }
+    .entry[open] .detail { animation: open .25s ease-out; }
+    @keyframes open { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+    .figure { font-weight: 600; font-variant-numeric: tabular-nums; }
+    code { font-size: .875em; }
+
+    /* Experience */
+    .roles { list-style: none; padding: 0; display: grid; gap: 2rem; }
+    .roles li { display: grid; grid-template-columns: 11rem 1fr; gap: 1.5rem; }
+    .roles .when { color: var(--slate); font-variant-numeric: tabular-nums; padding-top: .1rem; }
+    .roles h3 { font: 600 1rem/1.5 var(--sans); margin-bottom: .25rem; }
+    .roles p:not(.when) { max-width: 36rem; }
+
+    /* Method steps inside a project */
+    .method-title { font: 600 1rem/1.5 var(--sans); margin: 1.75rem 0 .75rem; }
+    .method { padding-left: 1.4rem; display: grid; gap: 1rem; counter-reset: none; }
+    .method li::marker { color: var(--slate); font-variant-numeric: tabular-nums; }
+    .method strong { font-weight: 600; }
+    .method .eq {
+      margin-top: .4rem; font-family: var(--serif); font-style: italic; font-size: 1.0625rem;
+      color: var(--ink); overflow-x: auto;
+    }
+    .method sub, .method sup { font-size: .7em; }
+
+    /* Skills */
+    .skills { display: grid; gap: 1.75rem; }
+    .skills div { display: grid; grid-template-columns: 11rem 1fr; gap: 1.5rem; }
+    .skills dt { font-weight: 600; }
+    .skills dd { color: var(--ink); max-width: 36rem; }
+
+    /* Contact */
+    .contact p { max-width: 34rem; margin-bottom: 1.25rem; }
+    .contact ul { list-style: none; padding: 0; display: flex; gap: 2rem; flex-wrap: wrap; }
+
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 0 3rem; color: var(--slate); font-size: .875rem;
+    }
+
+    @media (max-width: 760px) {
+      :root { --margin: 0; }
+      .opening { padding: 3.5rem 0 3rem; }
+      .facts { grid-template-columns: 1fr; gap: 1rem; }
+      .section { grid-template-columns: 1fr; padding: 2.75rem 0; }
+      .section > h2 { margin-bottom: 1.5rem; }
+      .skills div, .roles li { grid-template-columns: 1fr; gap: .25rem; }
+      .detail { padding-right: 0; }
+      .detail .meta { grid-template-columns: 1fr; gap: 0; }
+      .detail .meta dd { margin-bottom: .5rem; }
+      .masthead { flex-direction: column; align-items: flex-start; gap: .75rem; padding: 1.25rem 0; }
+      .masthead nav { gap: 1.1rem; font-size: .875rem; flex-wrap: wrap; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .toggle::before, .toggle::after { transition: none; }
+      .entry[open] .detail { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="masthead">
+      <a class="name" href="#">Aarav Patel</a>
+      <nav aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+        <a href="Aarav_Patel_Resume_2026.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="opening" aria-labelledby="intro">
+        <h1 class="statement" id="intro">I’m a Rutgers finance student who builds software and quantitative models that turn messy client and market data into numbers advisors can trust.</h1>
+        <dl class="facts">
+          <div><dt>Studying</dt><dd>B.S. Finance, Rutgers, 2028</dd></div>
+          <div><dt>Most recently</dt><dd>Analyst Intern, Planning Alliance</dd></div>
+          <div><dt>Works in</dt><dd>Python, Excel, Bloomberg</dd></div>
+        </dl>
+      </section>
+
+      <section class="section" id="work" aria-labelledby="work-title">
+        <h2 id="work-title">Selected work</h2>
+        <div class="section-body">
+          <p class="section-intro">Five projects, from a production system I designed during an internship to independent builds and research. Open any row for details.</p>
+
+          <div class="ledger">
+            <details class="entry" open>
+              <summary>
+                <div>
+                  <h3>PARS</h3>
+                  <p class="kind">Portfolio aggregation and reconciliation system, architect and sole developer</p>
+                  <p class="summary-text">A full-stack tool that reads a client’s custodian PDF statements, checks that every holding and total ties out, and exports an analyst-ready Excel workbook, Envestnet and Google Sheets files, and a PowerPoint review deck. It replaces the four-to-five-hour manual statement cycle advisors repeat for every client.</p>
+                </div>
+                <span class="toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="detail">
+                <ul>
+                  <li>Proposed the idea to the firm’s managing director while interning at Planning Alliance, then designed and built the whole system myself.</li>
+                  <li>AI extraction feeds a deterministic reconciliation engine that foots and cross-foots every statement and blocks export when a number doesn’t tie.</li>
+                  <li>A security master learns CUSIPs across custodians and ranks each by where it came from, so an analyst’s confirmation is never overwritten by a guess.</li>
+                  <li>Analytics cover asset allocation, fund look-through, bond analytics, equity insights, unrealized gains and tax-loss harvesting, asset location, fee audits, and model-portfolio proposals.</li>
+                  <li>Every exported figure is marked as sourced, derived, assumed, or pulled live from Bloomberg. The codebase has more than <span class="figure">470</span> automated tests.</li>
+                </ul>
+                <dl class="meta">
+                  <dt>Built with</dt><dd>Python, FastAPI, React, TypeScript, Claude API, Bloomberg, Excel</dd>
+                  <dt>Code</dt><dd>The production system belongs to the firm and is private. Its core ideas are public in <a href="https://github.com/aaravmehtapatel/portfolio-reconciliation" target="_blank" rel="noopener">portfolio-reconciliation</a>.</dd>
+                </dl>
+              </div>
+            </details>
+
+            <details class="entry">
+              <summary>
+                <div>
+                  <h3>Household reconciliation engine</h3>
+                  <p class="kind">Open-source Python library</p>
+                  <p class="summary-text">A from-scratch rewrite of the core ideas behind PARS: reconciling one family’s holdings across several custodians, when the same bond can be printed four different ways.</p>
+                </div>
+                <span class="toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="detail">
+                <ul>
+                  <li>Normalizes security names so different spellings of one bond collapse together, while refusing to merge names that only probably match.</li>
+                  <li>Ranks identifiers by source, analyst over statement over model, and never saves a model’s guess.</li>
+                  <li>Separates blocking breaks from items that need review. The demo plants three errors in a four-custodian household and catches all three.</li>
+                  <li>Uses exact decimal money throughout, with <span class="figure">30</span> tests and no outside dependencies.</li>
+                </ul>
+                <dl class="meta">
+                  <dt>Built with</dt><dd>Python standard library, pytest</dd>
+                  <dt>Code</dt><dd><a href="https://github.com/aaravmehtapatel/portfolio-reconciliation" target="_blank" rel="noopener">github.com/aaravmehtapatel/portfolio-reconciliation</a></dd>
+                </dl>
+              </div>
+            </details>
+
+            <details class="entry">
+              <summary>
+                <div>
+                  <h3>Gnosis</h3>
+                  <p class="kind">Executive intelligence engine, sole developer</p>
+                  <p class="summary-text">A browser app that convenes a synthetic expert panel on a research question, runs a three-round Delphi process to convergence, and returns an executive brief of ranked actions, confidence scores, and risk triggers.</p>
+                </div>
+                <span class="toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="detail">
+                <ul>
+                  <li>Each round pushes the panel toward agreement and flags where a panelist’s private conviction differs from their stated position.</li>
+                  <li>A statistical layer computes t-statistics, F-tests, and p-values across panel segments, so every finding carries a significance measure.</li>
+                  <li>Ships as a single self-contained browser application built on the Claude API.</li>
+                </ul>
+                <dl class="meta">
+                  <dt>Built with</dt><dd>JavaScript, Claude API</dd>
+                  <dt>Code</dt><dd>Available on request</dd>
+                </dl>
+              </div>
+            </details>
+
+            <details class="entry">
+              <summary>
+                <div>
+                  <h3>World Cup 2026 prediction model</h3>
+                  <p class="kind">Python package, sports analytics</p>
+                  <p class="summary-text">A match-prediction model for the 2026 World Cup that turns two teams’ strength into a probability for every possible scoreline, with a live mode that re-prices a match as it unfolds and a Monte Carlo simulator that plays out groups and knockouts.</p>
+                </div>
+                <span class="toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="detail">
+                <ul>
+                  <li>Before kickoff, on real June 2026 fixtures, its win, draw, and loss probabilities landed within 2 to 3 percentage points of sportsbook odds once the bookmaker’s margin was removed. For Brazil vs Scotland it gave 67/21/12; the market implied about 70/19/12.</li>
+                  <li>In walk-forward tests on simulated seasons, it scored a ranked probability score of <span class="figure">0.208</span>, against <span class="figure">0.222</span> for an Elo baseline and <span class="figure">0.235</span> for base rates, with a calibration error of <span class="figure">0.005</span>, and recovered the true team strengths at a <span class="figure">0.97</span> correlation.</li>
+                  <li>A live mode updates win probabilities as a match unfolds. In the Argentina vs Egypt round of 16, it gave Argentina a <span class="figure">67%</span> chance while they trailed 2–0 in the 70th minute, when sportsbooks implied only about <span class="figure">8–9%</span>. Argentina scored three late goals and won 3–2 in stoppage time.</li>
+                </ul>
+
+                <h4 class="method-title">How it works</h4>
+                <ol class="method">
+                  <li>
+                    <p><strong>Goals follow a Poisson distribution.</strong> Each team’s goals in a match are modeled as Poisson with a rate set by its attack, the opponent’s defence, and home advantage.</p>
+                    <p class="eq">λ<sub>home</sub> = exp(attack<sub>home</sub> − defence<sub>away</sub> + home), &nbsp; P(k goals) = λ<sup>k</sup>e<sup>−λ</sup> / k!</p>
+                  </li>
+                  <li>
+                    <p><strong>Strengths are fitted by maximum likelihood.</strong> Every team’s attack and defence are chosen to make past results as likely as possible, with older matches down-weighted by exponential time decay.</p>
+                  </li>
+                  <li>
+                    <p><strong>The Dixon-Coles correction fixes low scores.</strong> Independent Poisson models misprice 0–0, 1–0, 0–1 and 1–1, so a dependence parameter ρ adjusts just those four cells.</p>
+                  </li>
+                  <li>
+                    <p><strong>A score grid gives every outcome.</strong> Multiplying the two distributions gives the probability of each scoreline up to 12–12. The diagonal sums to the draw probability, one side to a home win, the other to an away win. The win margin is checked against the Skellam distribution, the exact law for the difference of two Poissons.</p>
+                  </li>
+                  <li>
+                    <p><strong>Live games are anchored to Elo ratings.</strong> The rating gap Δ gives an expected result, and the model solves for the goal margin D that reproduces it, holding total goals at 2.6. Host nations get +100 Elo.</p>
+                    <p class="eq">E = 1 / (1 + 10<sup>−Δ/400</sup>), &nbsp; λ<sub>home</sub> = (2.6 + D) / 2, &nbsp; λ<sub>away</sub> = (2.6 − D) / 2</p>
+                  </li>
+                  <li>
+                    <p><strong>Simulation adds the uncertainty.</strong> Each match is confirmed with 50,000 Monte Carlo runs, group standings with 300,000, and 20,000 random perturbations of the ratings produce 90% intervals around every probability.</p>
+                  </li>
+                  <li>
+                    <p><strong>Forecasts are graded, not just made.</strong> The ranked probability score rewards putting probability close to the real result; expected calibration error checks that 30% events happen about 30% of the time; Kelly sizing shows what a bet would be worth if the edge were real.</p>
+                    <p class="eq">RPS = ½ Σ (cumulative forecast − cumulative outcome)², &nbsp; Kelly f* = (bp − q) / b</p>
+                  </li>
+                </ol>
+                <dl class="meta">
+                  <dt>Built with</dt><dd>Python, NumPy, SciPy</dd>
+                  <dt>Code</dt><dd>Available on request</dd>
+                </dl>
+              </div>
+            </details>
+
+            <details class="entry">
+              <summary>
+                <div>
+                  <h3>S&amp;P 500 multi-factor index model</h3>
+                  <p class="kind">Excel and Bloomberg, built during an internship</p>
+                  <p class="summary-text">A Bloomberg-linked workbook that reverse-engineers the S&amp;P 500 Quality, Value and Momentum index to recover the constituent weights Bloomberg doesn’t publish, and explains why each stock was added, dropped, or kept at the June 2026 rebalance.</p>
+                </div>
+                <span class="toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="detail">
+                <ul>
+                  <li>Rebuilds S&amp;P’s methodology in Excel: rank-based normal-score factors, the 80/120 buffer that protects incumbents, and a water-fill solver for weight caps.</li>
+                  <li>Found and fixed a ranking bug that could silently corrupt the top-100 selection, replacing a <code>COUNTIF</code> comparison with an exact <code>SUMPRODUCT</code> one.</li>
+                  <li>Matched the momentum window, quality composite, and value ratios to the published index rules.</li>
+                </ul>
+                <dl class="meta">
+                  <dt>Built with</dt><dd>Excel, Bloomberg</dd>
+                  <dt>Workbook</dt><dd>Available on request</dd>
+                </dl>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="experience" aria-labelledby="experience-title">
+        <h2 id="experience-title">Experience</h2>
+        <div class="section-body">
+          <ol class="roles">
+            <li>
+              <p class="when">Jun – Aug 2026</p>
+              <div>
+                <h3>Financial Analyst Intern, Planning Alliance</h3>
+                <p>Reconciled and consolidated 5 to 10 custodian statements per client household across about $50M in client assets, and turned the holdings into the decks advisors present in client meetings. Built PARS and the multi-factor index model here.</p>
+              </div>
+            </li>
+            <li>
+              <p class="when">Jun – Jul 2025</p>
+              <div>
+                <h3>Part-Time Researcher, Rockit Alerts</h3>
+                <p>Developed signal logic for a systematic strategy using regression and anomaly detection on five years of SPY and AAPL daily data, and back-tested about 20 signal variants in Excel.</p>
+              </div>
+            </li>
+            <li>
+              <p class="when">Jun – Aug 2024</p>
+              <div>
+                <h3>Data Analyst Intern, QualQuant Signals</h3>
+                <p>Ranked about 15 product concepts by projected demand for a PepsiCo innovation project, and built segmentation models across six customer segments to reallocate Best Buy’s marketing spend.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="skills" aria-labelledby="skills-title">
+        <h2 id="skills-title">Skills</h2>
+        <div class="section-body">
+          <dl class="skills">
+            <div>
+              <dt>Finance</dt>
+              <dd>Bloomberg Terminal (PORT, SECF, FLDS, BDP, BDH), Bloomberg Market Concepts certified, financial and DCF modeling, portfolio reconciliation, fixed income and municipal bonds, asset allocation and fund look-through, tax-loss harvesting, factor index methodology, client review materials</dd>
+            </div>
+            <div>
+              <dt>Quantitative</dt>
+              <dd>Statistical modeling, regression and anomaly detection, back-testing, maximum likelihood estimation, Monte Carlo simulation, walk-forward validation, factor scoring</dd>
+            </div>
+            <div>
+              <dt>Software</dt>
+              <dd>Python, SQL, FastAPI, React, TypeScript, pytest, advanced Excel (macros, lookups, pivot tables), PowerPoint, Git and GitHub</dd>
+            </div>
+            <div>
+              <dt>AI</dt>
+              <dd>Anthropic Claude API, LLM document extraction and retrieval pipelines, multi-agent simulation, AI workflow automation</dd>
+            </div>
+            <div>
+              <dt>Languages</dt>
+              <dd>English (fluent), Hindi and Gujarati (intermediate)</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="section contact" id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact</h2>
+        <div class="section-body">
+          <p>I’m interested in roles in wealth management, asset management, and financial technology.</p>
+          <ul>
+            <li><a href="mailto:aarav41806@gmail.com">aarav41806@gmail.com</a></li>
+            <li><a href="tel:+12014461591">(201) 446-1591</a></li>
+            <li><a href="https://linkedin.com/in/aarav-patel-064633204" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://github.com/aaravmehtapatel" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="Aarav_Patel_Resume_2026.pdf" target="_blank" rel="noopener">Resume (PDF)</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>Aarav Patel, 2026</footer>
+  </div>
+</body>
+</html>
